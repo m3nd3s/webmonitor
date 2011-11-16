@@ -5,6 +5,7 @@
         $.get("<%= info_sensor_path %>", { ip: $('#sensor_ip_address').val(), token: $('#sensor_token').val() }, function(data){
           $('#sensor_max_temperature').val(data.max_temperature);
           $('#sensor_min_temperature').val(data.min_temperature);
+          $('#sensor_description').val(data.desc);
         });
     });
   //]]>

@@ -19,11 +19,13 @@ class Watcher
     response = HTTParty.get(url)
 
     # Fazendo o parseamento e retornando um hash
-    config = response.strip.split("\n")
+    config = response.split("\n")
     json = {}
     config.each do |c|
-      attribute = c.split('=')
-      json.store( attribute[0].to_sym, attribute[1].strip )
+      if c
+        attribute = c.split('=')
+        json.store( attribute[0].to_sym, attribute[1] )
+      end
     end
     json
   end
