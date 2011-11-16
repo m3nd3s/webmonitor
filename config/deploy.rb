@@ -3,6 +3,8 @@ $:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory
 require "rvm/capistrano" # Load RVM's capistrano plugin.
 set :rvm_ruby_string, '1.9.2' # Or whatever env you want it to run in.
 
+load 'deploy/assets'
+
 set :application, "webmonitor"
 set :repository,  "git@github.com:m3nd3s/webmonitor.git"
 
@@ -19,7 +21,7 @@ role :web, "192.168.3.29"                          # Your HTTP server, Apache/et
 role :app, "192.168.3.29"                          # This may be the same as your `Web` server
 role :db,  "192.168.3.29", :primary => true # This is where Rails migrations will run
 
-after 'deploy', 'deploy:rvmrc', 'deploy:database', 'deploy:migrate', 'deploy:seed', 'deploy:restart'
+after 'deploy', 'deploy:rvmrc', 'deploy:chmod', 'deploy:database', 'deploy:migrate', 'deploy:seed', 'deploy:restart'
 namespace :deploy do
   task :restart, :roles => :app do
     run "cd #{current_path} && touch tmp/restart.txt"
@@ -35,6 +37,10 @@ namespace :deploy do
 
   task :rvmrc, :roles => :app do
     run "rm -f #{current_path}/.rvmrc"
+  end
+
+  task :chmod, :roles => :app do
+    run "chmod -R 777 #{deploy_to}/*"
   end
 
 end
