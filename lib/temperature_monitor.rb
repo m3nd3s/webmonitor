@@ -10,7 +10,7 @@ class TemperatureMonitor
       sensors << { :sensor => s.description, :temperature => s.temperature } if s.is_alert?(temp) or s.is_critical?(temp)
     end
 
-    puts "Sensores em alerta ou críticos: #{sensors.inspect}"
+    puts "Sensores em alerta ou críticos: #{sensors.collect { |s| s.description }.join(",")}"
     if sensors.any?
       Messenger.notify_temperature(sensors)
     end

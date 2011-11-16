@@ -10,7 +10,6 @@
         <tr>
           <th>#</th>
           <th>Descri&ccedil;&atilde;o</th>
-          <th>Alerta</th>
           <th>A&ccedil;&otilde;es</th>
         </tr>
       </thead>
@@ -18,7 +17,6 @@
         <tr>
         <td><%= s.id %></td>
         <td><%= s.description %></td>
-        <td><%= s.alert %></td>
         <td>
           <%= link_to "R", sensor_path(s), :method => :delete, :confirm => "Está certo disto?", :class => "btn danger" %>
           <%= link_to "E", edit_sensor_path(s), :class => "btn success" %>
