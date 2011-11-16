@@ -17,7 +17,7 @@ class Sensor < ActiveRecord::Base
     end
 
     def is_alert?(temperature)
-      temperature.to_f > max_temperature or temperature.to_f < min_temperature
+      temperature.to_f >= max_temperature or temperature.to_f =< min_temperature
     end
 
     def is_critical?(temperature)
@@ -25,7 +25,7 @@ class Sensor < ActiveRecord::Base
       if ss
         critical_level = ss.critical_level
       end
-      not is_alert?(temperature.to_f) and ( temperature.to_f > ( max_temperature - critical_level.to_f ) or temperature.to_f < ( min_temperature - critical_level ) )
+      not is_alert?(temperature.to_f) and ( temperature.to_f >= ( max_temperature - critical_level.to_f ) or temperature.to_f =< ( min_temperature - critical_level ) )
     end
 
     def is_normal?(temperature)
