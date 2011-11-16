@@ -1,0 +1,51 @@
+<% content_for :javascript do %>
+  <script type="text/javascript" language="javascript" charset="utf-8">
+  //<![CDATA[
+    $('.info').click(function(){
+        $.get("<%= info_sensor_path %>", { ip: $('#sensor_ip_address').val(), token: $('#sensor_token').val() }, function(data){
+          $('#sensor_max_temperature').val(data.max_temperature);
+          $('#sensor_min_temperature').val(data.min_temperature);
+        });
+    });
+  //]]>
+  </script>
+<% end %>
+<%= form_for @sensor do |f| %>
+  <fieldset>
+  <legend>Dispositivo</legend>
+
+  <div class="clearfix">
+    <%= f.label :description, nil, :class => "obligatory" %>
+    <div class="input">
+      <%= f.text_field :description %>
+      <span class="help-block"><strong>Nota:</strong> Nome ou local</span>
+    </div>
+  </div>
+
+  <div class="clearfix">
+    <%= f.label :ip_address, nil, :class => "obligatory" %>
+    <div class="input">
+      <%= f.text_field :ip_address %>
+      <span class="help-block"><strong>Nota:</strong> Endere&ccedil;o IP do dispositivo</span>
+    </div>
+  </div>
+
+  <div class="clearfix">
+    <%= f.label :token, nil, :class => "obligatory" %>
+    <div class="input">
+      <%= f.text_field :token, :class => "xlarge" %>
+      <span class="help-block"><strong>Nota:</strong> n&atilde;o utilize espa&ccedil;os em branco</span>
+    </div>
+  </div>
+
+  <%= f.hidden_field :max_temperature %>
+  <%= f.hidden_field :min_temperature %>
+
+  <div class="actions">
+    <%= f.submit "Salvar", :class => "btn primary" %>
+    <%= button_tag "Cancelar", :type => :reset, :class => "btn" %>
+    <%= button_tag "Carregar Informações", :type => :button, :class => "btn info" %>
+  </div>
+
+</fieldset>
+<% end %>

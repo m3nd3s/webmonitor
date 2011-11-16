@@ -1,0 +1,21 @@
+<div class="page-header">
+  <h1>In&iacute;cio<small> Bem vindo</small></h1>
+</div>
+
+<div class="row">
+  <div class="span14">
+    <h2>Dispositivos</h2>
+  </div>
+
+  <% Sensor.all.each do |s| %>
+    <% temp = s.temperature %>
+  <div class="span4">
+    <%= link_to image_tag_sensor(s, temp), edit_sensor_path(s) %>
+    <h3><%= number_to_human temp, :separator => ',', :precision => 2, :significant => false %>&ordm; C</h3>
+    <p><%= s.description %></p>
+  </div>
+  <% end %>
+
+</div>
+
+
