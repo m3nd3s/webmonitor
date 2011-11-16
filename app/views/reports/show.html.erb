@@ -30,7 +30,7 @@
       <% @temperatures.each_with_index do |t,i| %>
         <tr>
         <td><%= l t.checked_at, :format => :normal %></td>
-        <td><%= number_to_human t.value, :precision => 2 %>&ordm; C</td>
+        <td><%= number_to_human t.value, :precision => 5 %>&ordm; C</td>
       </tr>
     <% end %>
     </table>
