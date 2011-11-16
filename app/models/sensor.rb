@@ -17,7 +17,7 @@ class Sensor < ActiveRecord::Base
     end
 
     def is_alert?(temperature)
-      temperature.to_f >= max_temperature or temperature.to_f =< min_temperature
+      temperature.to_f >= max_temperature or temperature.to_f <= min_temperature
     end
 
     def is_critical?(temperature)
