@@ -22,9 +22,9 @@ set :output, File.expand_path("../../log/crontab.log", __FILE__)
 #
 
 every 2.minutes do
-  runner "TemperatureMonitor.check_and_notify", :environment => :development
+  runner "TemperatureMonitor.check_and_notify"
 end
 
 every 30.minutes do
-  runner "TemperatureMonitor.fetch_temperatures", :environment => :development
+  runner "TemperatureMonitor.fetch_temperatures"
 end
