@@ -8,7 +8,12 @@ class Sensor < ActiveRecord::Base
     end
 
     def temperature
-       Watcher.get_temperature( ip_address, token )
+      begin
+        Watcher.get_temperature( ip_address, token )
+      rescue StantardError => e
+        logger.info "Erro de leitura do sensor: #{e.message}"
+        return -1
+      end
     end
 
     def is_alert?(temperature)

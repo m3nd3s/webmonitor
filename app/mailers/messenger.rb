@@ -10,7 +10,11 @@ class Messenger < ActionMailer::Base
     notifieds = Notification.where( :by => "email" ) 
     dests = []
     notifieds.each { |n| dests << n.using }
-    mail(:subject => "Notificação de Alerta", :to => dests.join(",")).deliver
+    begin
+      mail(:subject => "Notificação de Alerta", :to => dests.join(",")).deliver
+    rescue StandardError => e
+      logger.info "Ocorreu um erro ao enviar os e-mails: #{e.message}"
+    end
 
     # Notifica via SMS
     notifieds = Notification.where( :by => "sms" )
